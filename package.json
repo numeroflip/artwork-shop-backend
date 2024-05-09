@@ -1,0 +1,30 @@
+{
+  "name": "icf-backend",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --watch ./src --ext ts --exec \"tsc && npm start\"",
+    "start": "node dist/index.js",
+    "lint": "eslint . ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "@types/koa": "^2.15.0",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.1.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.8.0"
+  },
+  "dependencies": {
+    "koa": "^2.15.3"
+  }
+}
