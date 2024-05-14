@@ -14,5 +14,6 @@ export const errorHandler: Middleware = async (ctx, next) => {
     } else {
       ctx.status = 500;
     }
+    console.log(error);
   }
 };

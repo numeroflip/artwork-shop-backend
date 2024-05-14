@@ -11,15 +11,16 @@ export const validatePasswordInputSchema = z.object({
 export async function validatePassword(
   options: z.infer<typeof validatePasswordInputSchema>
 ) {
-  const { password, ...userInfoWithoutPassword } = options;
   const user = await prisma.user.findFirst({
-    where: { email: userInfoWithoutPassword.email },
+    where: { email: options.email },
   });
   if (!user) {
     return null;
   }
 
-  const isValid = await bcrypt.compare(password, user.password);
+  const { password, ...userInfoWithoutPassword } = user;
+
+  const isValid = await bcrypt.compare(options.password, password);
 
   if (isValid) {
     if (!process.env.JWT_SECRET) {
