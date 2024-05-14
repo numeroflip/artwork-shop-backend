@@ -1,14 +1,18 @@
 import { z } from "zod";
-import { RouteHandler } from "../routes/model.js";
+import { HttpError, Middleware } from "koa";
 
-export const errorHandler: RouteHandler = async (ctx, next) => {
+export const errorHandler: Middleware = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
     if (error instanceof z.ZodError) {
-      ctx.throw(400, error.message);
+      ctx.status = 400;
+      ctx.body = { error: error.flatten() };
+    } else if (error instanceof HttpError) {
+      ctx.status = error.status || 500;
+      ctx.body = { message: error.message };
     } else {
-      ctx.throw(500);
+      ctx.status = 500;
     }
   }
 };

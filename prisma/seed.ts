@@ -1,17 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+import bcrypt from "bcrypt";
 import type { User } from "@prisma/client";
 
-const usersData: Omit<User, "id">[] = [
-  {
-    email: "user1@email.com",
-  },
-  {
-    email: "user2@email.com",
-  },
-];
+const DEFAULT_UNSAFE_PASSWORD = "password";
+const saltRounds = 10;
 
 const main = async () => {
+  const passwordHash = await bcrypt.hash(DEFAULT_UNSAFE_PASSWORD, saltRounds);
+
+  const usersData: Omit<User, "id">[] = [
+    {
+      email: "user1@email.com",
+      password: passwordHash,
+    },
+    {
+      email: "user2@email.com",
+      password: passwordHash,
+    },
+  ];
   console.log("start seeding …");
   for (const _user of usersData) {
     const user = await prisma.user.create({
