@@ -6,5 +6,5 @@ import { getArtworks } from "../controllers/artworks.js";
 export const router = new Router();
 
 router.post("/login", login);
-router.get("/artwork/:id", getArtwork);
+router.get("/artworks/:id", getArtwork);
 router.get("/artworks", getArtworks);
