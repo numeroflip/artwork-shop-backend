@@ -47,6 +47,9 @@ export async function fetchArtworks(
       },
     }
   );
+  if (!response.ok) {
+    Promise.reject(response.statusText);
+  }
 
   const json = await response.json();
 
@@ -59,7 +62,9 @@ export async function fetchArtworks(
 
 export async function fetchArtwork(id: number) {
   const response = await fetch(`${URL}/artworks/${id}?${fieldsOption}`);
-
+  if (!response.ok) {
+    Promise.reject(response.statusText);
+  }
   const json = await response.json();
 
   return parseRawResponse(json.data);

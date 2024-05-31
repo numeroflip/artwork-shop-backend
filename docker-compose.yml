@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mysql:8.2.0
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  server:
+    build:
+      context: .
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+volumes:
+  db-data:

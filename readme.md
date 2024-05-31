@@ -3,7 +3,8 @@
 Use the default docker-compose.yml:
 
 ```sh
-docker-compose up --build --force-recreate
+docker-compose compose build
+docker-compose up
 ```
 
 ## Running the Production Environment
@@ -11,5 +12,32 @@ docker-compose up --build --force-recreate
 Use the production-specific docker-compose.prod.yml:
 
 ```sh
-docker-compose -f compose.prod.yml up --build --force-recreate
+docker-compose -f docker-compose.prod.yml compose build
+docker-compose -f docker-compose.prod.yml up
+```
+
+## First run
+
+On the initial run you need to setup the database. For that, enter the server container:
+
+```sh
+docker-compose exec server sh
+```
+
+Then, setup the empty database:
+
+```sh
+npm run migrate
+```
+
+Seed the database
+
+```sh
+npm run seed
+```
+
+Exit from the container
+
+```sh
+exit
 ```

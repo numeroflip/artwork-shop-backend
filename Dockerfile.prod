@@ -1,4 +1,4 @@
-# Build
+# BUILD STEP:  Initial build with dev dependencies
 FROM node:20-alpine3.19 AS build
 
 USER node
@@ -10,12 +10,12 @@ RUN npm ci --include=dev
 COPY --chown=node:node  . .
 
 run npx prisma generate 
+EXPOSE 3000
 
 RUN npm run build
 
-# Prod
+# PRODUCTION STEP: Production build without dev dependencies
 FROM node:20-alpine3.19 
-RUN apk add dumb-init
 
 WORKDIR /usr/src/app
 ENV NODE_ENV production
@@ -25,15 +25,13 @@ COPY --chown=node:node  package*.json .
 
 RUN npm ci --omit=dev  && npm cache clean --force
 
+# Copy Prisma Client Libraries as they were generated during previous step
 COPY --from=build --chown=node:node /usr/src/app/node_modules/@prisma/client/ ./node_modules/@prisma/client/
 COPY --from=build --chown=node:node /usr/src/app/node_modules/.prisma/client/ ./node_modules/.prisma/client/
 
 USER node
 
 EXPOSE 3000
-ENTRYPOINT ["dumb-init", "--"]
-CMD ["npm", "run", "start"]
-
-
+CMD ["node", "dist/src/index.js"]
 
 
