@@ -9,7 +9,7 @@ It has JSON WEB Token authentication ( No user creation, only the seeded users c
 Use the default docker-compose.yml:
 
 ```sh
-docker-compose compose build
+docker-compose build
 docker-compose up
 ```
 
@@ -18,7 +18,7 @@ docker-compose up
 Use the production-specific docker-compose.prod.yml:
 
 ```sh
-docker-compose -f docker-compose.prod.yml compose build
+docker-compose -f docker-compose.prod.yml build
 docker-compose -f docker-compose.prod.yml up
 ```
 
