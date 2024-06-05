@@ -1,6 +1,6 @@
 ## Artwork shop backend
 
-A Simple dockerized KOA REST API for listing and buying artworks. ( Artworks from api.artic.edu )
+A dockerized KOA REST API for listing and buying artworks. ( Artworks from api.artic.edu )
 It has JSON WEB Token authentication ( No user creation, only the seeded users can be used )
 
 
